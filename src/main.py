@@ -14,3 +14,7 @@ async def get_race_results(year: int, track: str):
 @app.get("/get_quali_results")
 async def get_quali_results(year: int, track: str):
     return _scraper.get_qualifying_results(year, track)
+
+@app.get("/get_practice_results")
+async def get_practice_results(year: int, track: str):
+    return _scraper.get_practice_results(year, track)

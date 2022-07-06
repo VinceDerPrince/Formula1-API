@@ -54,3 +54,26 @@ def get_qualifying_results(year: int, place: str) -> Dict:
         }
     
     return final
+
+def get_practice_results(year: int, place: str) -> Dict:
+    #return results of a specific race
+    url = _generate_url(year, place, "practice")
+    page = _get_page(url)
+    raw_placements = page.find_all(class_ = "gs-u-vh")
+    unwanted = ["Qualifying", "Rank", "BBC"]
+    placements = [placement.text for placement in raw_placements if placement.text not in unwanted]
+    chunks = [placements[x:x+5] for x in range(0, len(placements), 5)]
+    split = [chunks[:20], chunks[20:40], chunks[40:60]]
+    waba = dict()
+    for j in reversed(range(3)):
+        final = dict()
+        for i in range(20):
+            final[i+1] = {
+                "driver": split[j][i][1],
+                "number": split[j][i][2],
+                "fastest-lap": split[j][i][3],
+                "laps": split[j][i][4]
+            }
+        waba[f"{3-j}. training"] = final
+    
+    return waba
