@@ -3,16 +3,19 @@ from typing import Dict,List
 import requests as _requests
 import bs4 as _bs4
 
+#generate the url which is about to be scraped, depending on the following information
 def _generate_url(year: int, place: str, race_type: str) -> str:
     place = place.replace(" ", "-")
     url = f"https://www.bbc.com/sport/formula1/{year}/{place}-grand-prix/results/{race_type}"
     return url
 
+#creates the beautifulsoup object of the page
 def _get_page(url: str) -> _bs4.BeautifulSoup:
     page = _requests.get(url)
     soup = _bs4.BeautifulSoup(page.content, "html.parser")
     return soup
 
+#gets the race results of the grand price place and the year it was in
 def get_race_results(year: int, place: str) -> Dict:
     #return results of a specific race
     url = _generate_url(year, place, "race")
@@ -35,6 +38,7 @@ def get_race_results(year: int, place: str) -> Dict:
     
     return final
 
+#gets the qualifying results of the grand price place and the year it was in
 def get_qualifying_results(year: int, place: str) -> Dict:
     #return results of a specific race
     url = _generate_url(year, place, "qualifying")
@@ -55,6 +59,7 @@ def get_qualifying_results(year: int, place: str) -> Dict:
     
     return final
 
+#gets the practice results of the grand price place and the year it was in
 def get_practice_results(year: int, place: str) -> Dict:
     #return results of a specific race
     url = _generate_url(year, place, "practice")
