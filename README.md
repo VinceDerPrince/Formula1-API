@@ -24,7 +24,7 @@ You do this as such:
 ```
 uvicorn main:app --reload
 ```
-It should know look like this in your terminal and a browser Window with the API UI should show up.
+It should know look like this in your terminal and a browser Window with the API UI should show up. To get this better looking interface, as in my preview of the features, append "/docs" at the end of the link in your browser!
 
 ![Uvicorn Setup](/images/uvicorn_setup.png)
 
